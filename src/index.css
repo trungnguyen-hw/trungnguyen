@@ -1,0 +1,137 @@
+@import "tailwindcss";
+
+:root {
+  --accent: #4B087F;
+  --accent-secondary: #8B2CFF;
+  --text: #f8fafc;
+  --muted: #94a3b8;
+  --background: #08080c;
+}
+
+@layer base {
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background-color: var(--background);
+    color: var(--text);
+    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+.display-font {
+  font-family: 'Plus Jakarta Sans', 'Syne', sans-serif;
+}
+
+.mono-font {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Glassmorphism utility for floating UI cards ONLY */
+.glass-hud {
+  background: rgba(12, 12, 18, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8);
+}
+
+.glass-hud-subtle {
+  background: rgba(10, 10, 14, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* ------------------------------------------------------------- */
+/* ELECTRIC PURPLE ENERGY RING ANIMATIONS                        */
+/* ------------------------------------------------------------- */
+
+@keyframes purpleEnergyRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes purplePlasmaPulse {
+  0%, 100% {
+    opacity: 0.85;
+    box-shadow: 0 0 20px #8B2CFF, 0 0 40px rgba(139, 44, 255, 0.5);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 30px #B44CFF, 0 0 55px rgba(213, 138, 255, 0.7);
+  }
+}
+
+@keyframes purpleParticleOrbit {
+  0% {
+    transform: translateY(0px) rotate(0deg) scale(0.8);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-12px) rotate(180deg) scale(1.2);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-24px) rotate(360deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+.animate-purple-ring-flow {
+  animation: purpleEnergyRotate 4.5s linear infinite;
+}
+
+.group:hover .animate-purple-ring-flow {
+  animation-duration: 3.5s;
+}
+
+.animate-purple-plasma {
+  animation: purplePlasmaPulse 3.5s ease-in-out infinite;
+}
+
+.animate-purple-particle {
+  animation: purpleParticleOrbit 4s ease-in-out infinite;
+}
+
+/* Reduced motion preference fallback */
+@media (prefers-reduced-motion: reduce) {
+  .animate-purple-ring-flow,
+  .animate-purple-plasma,
+  .animate-purple-particle {
+    animation: none !important;
+  }
+}
+
+/* Custom Tooltip styling */
+.tooltip-hud {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  padding: 4px 10px;
+  border-radius: 8px;
+  background: rgba(10, 10, 15, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.group:hover .tooltip-hud {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-12px);
+}
