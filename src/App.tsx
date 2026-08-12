@@ -10,6 +10,10 @@ import { useToast } from './hooks/useToast';
 import { PROFILE_DATA } from './data/profile';
 import { Eye, CloudSun, Clock } from 'lucide-react';
 
+// This lives outside the component so React StrictMode's development remount
+// cannot send a second increment request for the same document load.
+let hasRequestedViewIncrement = false;
+
 export default function App() {
   const { toasts, showToast, removeToast } = useToast();
   
@@ -21,6 +25,39 @@ export default function App() {
 
   // Realtime Clock State
   const [timeStr, setTimeStr] = useState('');
+
+  // The API is the sole source of truth. We deliberately do not use a frontend
+  // fallback value, so the initial database value is never hard-coded here.
+  const [views, setViews] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (hasRequestedViewIncrement) return;
+    hasRequestedViewIncrement = true;
+
+    const incrementViews = async () => {
+      try {
+        const response = await fetch('/api/views', {
+          method: 'POST',
+          cache: 'no-store',
+        });
+
+        if (!response.ok) return;
+        const data: unknown = await response.json();
+        if (
+          typeof data === 'object' &&
+          data !== null &&
+          'views' in data &&
+          typeof data.views === 'number'
+        ) {
+          setViews(data.views);
+        }
+      } catch {
+        // A counter outage must never prevent the profile page from loading.
+      }
+    };
+
+    void incrementViews();
+  }, []);
 
   // Mouse Parallax Offsets: Background 5px, Profile -2px
   const [parallax, setParallax] = useState({
@@ -121,7 +158,7 @@ export default function App() {
         {/* Top-Right: Views Indicator */}
         <div className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-xl glass-hud-subtle border border-white/10 text-[10px] xs:text-[11px] sm:text-xs md:text-sm font-mono text-neutral-400 pointer-events-auto">
           <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-400 shrink-0" />
-          <span>{PROFILE_DATA.views} views</span>
+          <span>{views === null ? '…' : views} views</span>
         </div>
 
       </header>

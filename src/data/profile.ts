@@ -15,7 +15,6 @@ export const PROFILE_DATA = {
   bio: "Welcome to my page.",
   location: "Vietnam",
   status: "Online",
-  views: 128,
   weather: "27°C Vietnam",
   
   avatar: "/anhdaidien/anhdaidien.jpg",
