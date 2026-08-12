@@ -11,7 +11,10 @@ type VercelResponse = {
 };
 
 function getDatabase() {
-  const databaseUrl = process.env.DATABASE_URL;
+  const runtime = globalThis as {
+    process?: { env?: Record<string, string | undefined> };
+  };
+  const databaseUrl = runtime.process?.env?.DATABASE_URL;
   return databaseUrl ? neon(databaseUrl) : null;
 }
 
