@@ -10,16 +10,16 @@ export interface SocialItem {
 
 export const PROFILE_DATA = {
   // Primary Personal Identity Data
-  name: "TRUNG NGUYỄN",
-  username: "@trungnguyen",
-  bio: "Welcome to my page.",
+  name: "HOÀN RÙA ICLOUD",
+  username: "@hoanruaicloud",
+  bio: "Welcome to my iCloud.",
   location: "Vietnam",
   status: "Online",
   weather: "27°C Vietnam",
   
-  avatar: "/anhdaidien/anhdaidien.jpg",
-  fallbackAvatar: "/anhdaidien.jpg",
-  backgroundImage: "/video_nen.mp4",
+  avatar: "/hoanrua.png",
+  fallbackAvatar: "/hoanrua.png",
+  backgroundImage: "/videoapple2.mp4",
 
   // Direct Contacts
   phone: "0867671066",
@@ -34,68 +34,67 @@ export const PROFILE_DATA = {
     {
       id: "discord",
       name: "Discord",
-      url: "https://discord.com/users/1349817900441145346",
-      username: "Discord Profile",
+      url: "#",
+      username: "Chưa Cập Nhập",
       actionType: "link",
       enabled: true
     },
     {
       id: "facebook",
       name: "Facebook",
-      url: "https://www.facebook.com/trung.nguyenphu.9275",
-      username: "TRUNG NGUYỄN",
+      url: "https://www.facebook.com/ruasaker06",
+      username: "Facebook",
       actionType: "link",
       enabled: true
     },
     {
       id: "tiktok",
       name: "TikTok",
-      url: "https://www.tiktok.com/@trungnguyenzkz",
-      username: "@trungnguyenzkz",
+      url: "https://www.tiktok.com/@saulebong.06?_r=1&_t=ZS-98ptWCCWDjj",
+      username: "@saulebong.06",
       actionType: "link",
       enabled: true
     },
     {
       id: "telegram",
       name: "Telegram",
-      url: "https://t.me/trungnguyen",
-      username: "@trungnguyen",
+      url: "#",
+      username: "Chưa Cập Nhập",
       actionType: "link",
       enabled: true
     },
     {
       id: "zalo",
       name: "Zalo",
-      url: "https://zalo.me/0867671066",
-      username: "0867671066",
+      url: "#",
+      username: "0363.0.54321 - 0353.715.517",
       actionType: "copy",
-      copyText: "0867671066",
+      copyText: "0363.0.54321 - 0353.715.517",
       enabled: true
     },
     {
       id: "github",
       name: "GitHub",
-      url: "https://github.com/trungnguyen-hw",
-      username: "@trungnguyen-hw",
+      url: "#",
+      username: "Chưa Cập Nhập",
       actionType: "link",
       enabled: true
     },
     {
       id: "phone",
       name: "Phone",
-      url: "tel:0867671066",
-      username: "0867671066",
+      url: "tel:0363054321",
+      username: "0363.0.54321 - 0353.715.517",
       actionType: "phone",
-      copyText: "0867671066",
+      copyText: "0363.0.54321 - 0353.715.517",
       enabled: true
     },
     {
       id: "email",
       name: "Email",
-      url: "mailto:trungngo1903206@gmail.com",
-      username: "trungngo1903206@gmail.com",
-      actionType: "email",
-      copyText: "trungngo1903206@gmail.com",
+      url: "#",
+      username: "Chưa Cập Nhập",
+      actionType: "link",
       enabled: true
     }
   ] as SocialItem[]

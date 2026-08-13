@@ -1,137 +1,236 @@
 @import "tailwindcss";
 
 :root {
-  --accent: #4B087F;
-  --accent-secondary: #8B2CFF;
-  --text: #f8fafc;
-  --muted: #94a3b8;
-  --background: #08080c;
+  --text: #f5f7fa;
+  --muted: #b7c0cc;
+  --background: #0a0d12;
+  --sat: env(safe-area-inset-top, 0px);
+  --sar: env(safe-area-inset-right, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
 }
 
 @layer base {
   html, body {
     margin: 0;
     padding: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
+    width: 100%;
+    max-width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    overflow-x: hidden;
+    overflow-y: auto;
     background-color: var(--background);
-    color: var(--text);
-    font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
     user-select: none;
     -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    box-sizing: border-box;
+  }
+
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  h1, h2, h3, h4, p, span, button, a, label {
+    color: #ffffff;
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.9), 0px 1px 3px rgba(0, 0, 0, 0.95);
+  }
+
+  svg {
+    filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.8));
   }
 }
 
-.display-font {
-  font-family: 'Plus Jakarta Sans', 'Syne', sans-serif;
+.display-font { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif; }
+.mono-font { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif; }
+
+.glass-hud,
+.glass-hud-subtle {
+  background: rgba(23, 28, 35, 0.54);
+  backdrop-filter: blur(20px) saturate(145%);
+  -webkit-backdrop-filter: blur(20px) saturate(145%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22), inset 0 1px rgba(255, 255, 255, 0.08);
 }
 
-.mono-font {
-  font-family: 'JetBrains Mono', monospace;
+.glass-hud-subtle { background: rgba(21, 26, 33, 0.42); }
+
+.profile-card {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
-/* Glassmorphism utility for floating UI cards ONLY */
-.glass-hud {
-  background: rgba(12, 12, 18, 0.65);
+.apple-pill {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45), inset 0 1px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.8);
 }
 
-.glass-hud-subtle {
-  background: rgba(10, 10, 14, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+.social-button {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45), inset 0 1px rgba(255,255,255,0.12);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  touch-action: manipulation;
 }
 
-/* ------------------------------------------------------------- */
-/* ELECTRIC PURPLE ENERGY RING ANIMATIONS                        */
-/* ------------------------------------------------------------- */
-
-@keyframes purpleEnergyRotate {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.social-button:hover {
+  background: rgba(0, 0, 0, 0.72);
+  border-color: rgba(186, 230, 253, 0.5);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(186, 230, 253, 0.22), inset 0 1px rgba(255,255,255,0.18);
+  transform: translateY(-2px) scale(1.05);
 }
 
-@keyframes purplePlasmaPulse {
-  0%, 100% {
-    opacity: 0.85;
-    box-shadow: 0 0 20px #8B2CFF, 0 0 40px rgba(139, 44, 255, 0.5);
-  }
-  50% {
-    opacity: 1;
-    box-shadow: 0 0 30px #B44CFF, 0 0 55px rgba(213, 138, 255, 0.7);
-  }
+@keyframes avatarAura {
+  0%, 100% { opacity: .42; transform: scale(.96); }
+  50% { opacity: .7; transform: scale(1.04); }
 }
 
-@keyframes purpleParticleOrbit {
-  0% {
-    transform: translateY(0px) rotate(0deg) scale(0.8);
-    opacity: 0.8;
-  }
-  50% {
-    transform: translateY(-12px) rotate(180deg) scale(1.2);
-    opacity: 0.4;
-  }
-  100% {
-    transform: translateY(-24px) rotate(360deg) scale(0.8);
-    opacity: 0;
-  }
+@keyframes statusPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, .35); }
+  50% { box-shadow: 0 0 0 5px rgba(74, 222, 128, 0); }
 }
 
-.animate-purple-ring-flow {
-  animation: purpleEnergyRotate 4.5s linear infinite;
+.avatar-aura { animation: avatarAura 4s ease-in-out infinite; }
+.status-pulse { animation: statusPulse 2.5s ease-in-out infinite; }
+
+.services-section {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  width: 100%;
+  max-width: 100%;
 }
 
-.group:hover .animate-purple-ring-flow {
-  animation-duration: 3.5s;
+.services-rule {
+  display: block;
+  width: 18px;
+  height: 1px;
+  background: rgba(186, 223, 246, 0.65);
 }
 
-.animate-purple-plasma {
-  animation: purplePlasmaPulse 3.5s ease-in-out infinite;
+/* Base Services Grid: Mobile Default (1 Column) */
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.55rem;
+  width: 100%;
+  max-width: 100%;
 }
 
-.animate-purple-particle {
-  animation: purpleParticleOrbit 4s ease-in-out infinite;
+.service-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.45);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45), inset 0 1px rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  box-sizing: border-box;
 }
 
-/* Reduced motion preference fallback */
-@media (prefers-reduced-motion: reduce) {
-  .animate-purple-ring-flow,
-  .animate-purple-plasma,
-  .animate-purple-particle {
-    animation: none !important;
-  }
+.service-card:hover {
+  transform: translateY(-3px) scale(1.025);
+  background: rgba(0, 0, 0, 0.75);
+  border-color: rgba(186, 230, 253, 0.5);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 0 16px rgba(186, 230, 253, 0.2);
 }
 
-/* Custom Tooltip styling */
-.tooltip-hud {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-8px);
-  padding: 4px 10px;
-  border-radius: 8px;
-  background: rgba(10, 10, 15, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+.service-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
   color: #ffffff;
-  font-size: 11px;
-  font-weight: 600;
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.15);
+  margin: 0;
+  padding: 0;
 }
 
-.group:hover .tooltip-hud {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-12px);
+.service-icon svg { 
+  width: 17px; 
+  height: 17px; 
+  flex-shrink: 0; 
+  display: block;
+  color: #ffffff;
+  filter: drop-shadow(0px 2px 6px rgba(0, 0, 0, 0.8)); 
 }
+.service-title { margin: 0; font-size: 0.75rem; line-height: 1.25; font-weight: 600; color: #ffffff; text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.9); }
+.service-detail, .service-phones { margin: 0.18rem 0 0; font-size: 0.68rem; line-height: 1.35; color: #f1f5f9; text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9); word-break: break-word; overflow-wrap: anywhere; }
+.service-phones { display: flex; flex-wrap: wrap; align-items: center; gap: 0.25rem; }
+.service-phone { color: #ffffff; text-decoration: none; white-space: nowrap; text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9); touch-action: manipulation; }
+.service-phone:hover { color: #ffffff; text-decoration: underline; text-underline-offset: 3px; }
+.service-phone:hover { color: #ffffff; text-decoration: underline; text-underline-offset: 3px; }
+.service-separator { color: #ffffff; opacity: 0.8; text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9); }
+.service-online { display: flex; align-items: center; gap: 0.35rem; color: #86efac; text-shadow: 0px 2px 6px rgba(0, 0, 0, 0.9); }
+.service-status-dot { width: 0.38rem; height: 0.38rem; border-radius: 999px; background: #4ade80; box-shadow: 0 0 0 3px rgba(74,222,128,0.25); }
+
+/* Tablet / Medium Screen Layout (540px to 899px): 2 Column Grid (2-2-1 Centered) */
+@media (min-width: 540px) and (max-width: 899px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .service-card:nth-child(5) {
+    grid-column: span 2;
+    max-width: 80%;
+    justify-self: center;
+    width: 100%;
+  }
+}
+
+/* Desktop & Large Tablet (>= 900px): 6 Column Layout (3-2 Centered) */
+@media (min-width: 900px) {
+  .services-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+  .service-card {
+    grid-column: span 2;
+  }
+  .service-card:nth-child(4) { grid-column: 2 / span 2; }
+  .service-card:nth-child(5) { grid-column: 4 / span 2; }
+}
+
+@media (max-width: 640px) {
+  .services-section {
+    margin-top: 0.9rem;
+    padding-top: 0.75rem;
+  }
+}
+
+/* 4K and Ultra-wide Desktops (1920px+) */
+@media (min-width: 1920px) {
+  .profile-card {
+    max-width: 720px;
+    padding: 2.25rem 2.75rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar-aura, .status-pulse { animation: none !important; }
+  .social-button, .service-card { transition: none !important; }
+}
+

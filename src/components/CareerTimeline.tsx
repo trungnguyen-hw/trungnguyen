@@ -38,7 +38,7 @@ export const CareerTimeline: React.FC<CareerTimelineProps> = ({ timeline }) => {
             </div>
 
             {/* Timeline Content Card */}
-            <div className="w-full md:w-[46%] pl-14 md:pl-0">
+            <div className="w-full md:w-[46%] pl-10 sm:pl-12 md:pl-0">
               <div 
                 onClick={() => toggleExpand(idx)}
                 onMouseEnter={() => playSound('hover')}

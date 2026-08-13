@@ -51,17 +51,18 @@ export const VolumeButton: React.FC<VolumeButtonProps> = ({ videoRef }) => {
       <button
         onClick={handleToggleMute}
         onMouseEnter={() => playSound('hover')}
-        className={`p-2.5 rounded-xl glass-hud-subtle border border-white/10 transition-all shadow-lg flex items-center justify-center ${
-          isMuted ? 'bg-red-500/10 text-red-400 border-red-500/30' : 'text-neutral-300 hover:text-white hover:border-purple-400/50'
+        className={`p-2.5 rounded-xl glass-hud-subtle border border-white/10 transition-all shadow-lg flex items-center justify-center cursor-pointer touch-manipulation active:scale-95 ${
+          isMuted ? 'bg-red-500/10 text-red-300 border-red-400/30' : 'text-slate-200 hover:text-white hover:border-sky-100/40'
         }`}
-        title={isMuted ? 'Bật âm thanh video' : 'Tắt âm thanh video'}
+        title={isMuted ? 'Bật âm thanh' : 'Tắt âm thanh'}
+        aria-label={isMuted ? 'Unmute audio' : 'Mute audio'}
       >
         {isMuted ? (
           <VolumeX className="w-4 h-4" />
         ) : volume < 0.5 ? (
-          <Volume1 className="w-4 h-4 text-purple-400" />
+          <Volume1 className="w-4 h-4 text-sky-200" />
         ) : (
-          <Volume2 className="w-4 h-4 text-purple-400" />
+          <Volume2 className="w-4 h-4 text-sky-200" />
         )}
       </button>
 
@@ -75,7 +76,7 @@ export const VolumeButton: React.FC<VolumeButtonProps> = ({ videoRef }) => {
             step="0.05"
             value={isMuted ? 0 : volume}
             onChange={handleVolumeChange}
-            className="w-20 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-purple-400"
+            className="w-20 h-1 bg-white/20 rounded-lg appearance-none cursor-pointer accent-sky-200"
           />
           <span className="text-[10px] font-mono text-neutral-300 min-w-[24px]">
             {isMuted ? '0%' : `${Math.round(volume * 100)}%`}

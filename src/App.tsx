@@ -114,7 +114,15 @@ export default function App() {
   };
 
   return (
-    <div className="relative w-full h-full min-h-svh h-svh overflow-hidden bg-[#08080c] text-[#f8fafc] font-sans select-none flex flex-col justify-between p-3.5 sm:p-6">
+    <div 
+      className="relative w-full max-w-full min-h-screen min-h-dvh overflow-x-hidden bg-[#0a0d12] text-[#f5f7fa] font-sans select-none flex flex-col justify-between gap-4 sm:gap-6 md:gap-8 p-3 xs:p-4 sm:p-6 md:p-8"
+      style={{
+        paddingTop: 'max(0.75rem, var(--sat))',
+        paddingBottom: 'max(0.75rem, var(--sab))',
+        paddingLeft: 'max(0.75rem, var(--sal))',
+        paddingRight: 'max(0.75rem, var(--sar))'
+      }}
+    >
       
       {/* 1. Initial Fast Loading Screen */}
       <LoadingScreen />
@@ -126,7 +134,7 @@ export default function App() {
       <BackgroundVideo 
         videoRef={videoRef}
         parallaxOffset={{ bgX: parallax.bgX, bgY: parallax.bgY }} 
-        videoSrc="/video_nen.mp4"
+        videoSrc="/videoapple2.mp4"
         showRain={true}
       />
 
@@ -134,21 +142,21 @@ export default function App() {
       <CustomCursor />
 
       {/* 5. Top Floating Bar (HUD Controls: Volume Button, Clock, Weather, Views) */}
-      <header className="relative z-20 flex items-center justify-between w-full max-w-6xl mx-auto pointer-events-none">
+      <header className="relative z-20 flex items-center justify-between w-full max-w-6xl mx-auto pointer-events-none gap-2 min-w-0 max-w-full">
         
         {/* Top-Left: Volume Button & Floating Clock/Weather Badges */}
-        <div className="flex items-center gap-1.5 sm:gap-2 pointer-events-auto">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 pointer-events-auto">
           <VolumeButton videoRef={videoRef} />
 
           {/* Live Clock Badge (Fluid Responsive) */}
-          <div className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-xl glass-hud-subtle border border-white/10 text-[10px] xs:text-[11px] sm:text-xs md:text-sm font-mono text-neutral-300">
-            <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-400 shrink-0" />
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-xl glass-hud-subtle text-[11px] sm:text-xs md:text-sm text-slate-200 shrink-0">
+            <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-sky-200 shrink-0" />
             <span>{timeStr || '12:48 AM'}</span>
           </div>
 
-          {/* Weather Badge */}
+          {/* Weather Badge (Visible on sm and up) */}
           {PROFILE_DATA.weather && (
-            <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl glass-hud-subtle border border-white/10 text-xs md:text-sm font-mono text-neutral-300">
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-xl glass-hud-subtle text-[11px] sm:text-xs md:text-sm text-slate-200">
               <CloudSun className="w-3.5 h-3.5 text-sky-400 shrink-0" />
               <span>{PROFILE_DATA.weather}</span>
             </div>
@@ -156,15 +164,15 @@ export default function App() {
         </div>
 
         {/* Top-Right: Views Indicator */}
-        <div className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-xl glass-hud-subtle border border-white/10 text-[10px] xs:text-[11px] sm:text-xs md:text-sm font-mono text-neutral-400 pointer-events-auto">
-          <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-purple-400 shrink-0" />
+        <div className="flex items-center gap-1.5 px-2.5 py-1.5 sm:px-3 rounded-xl glass-hud-subtle text-[11px] sm:text-xs md:text-sm text-slate-300 pointer-events-auto shrink-0">
+          <Eye className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-sky-200 shrink-0" />
           <span>{views === null ? '…' : views} views</span>
         </div>
 
       </header>
 
       {/* 6. Centerpiece Floating Profile (z-10, overflow-visible) */}
-      <main className="relative z-10 my-auto flex flex-col items-center justify-center overflow-visible w-full">
+      <main className="relative z-10 my-auto flex flex-col items-center justify-center overflow-visible w-full py-2 sm:py-4">
         <Profile 
           onShowToast={showToast}
           parallaxOffset={{ profileX: parallax.profileX, profileY: parallax.profileY }}
@@ -172,15 +180,14 @@ export default function App() {
       </main>
 
       {/* 7. Bottom Minimal Footer Bar (z-20) */}
-      <footer className="relative z-20 flex items-end justify-between w-full max-w-6xl mx-auto pointer-events-none">
-        <div className="text-[10px] sm:text-xs md:text-sm text-neutral-400 font-mono pointer-events-auto flex items-center gap-1.5 sm:gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
-          <span>ONLINE & CONNECTED</span>
+      <footer className="relative z-20 flex flex-wrap items-center justify-between gap-2.5 w-full max-w-6xl mx-auto pt-2 sm:pt-4 shrink-0">
+        <div className="apple-pill flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs text-emerald-300 font-medium shadow-md">
+          <span className="w-2 h-2 rounded-full bg-emerald-400 status-pulse shrink-0" />
+          <span>ONLINE</span>
         </div>
 
-        {/* Footer Name: 2026 TRUNG NGUYỄN */}
-        <div className="text-[10px] sm:text-xs md:text-sm text-neutral-500 font-mono pointer-events-auto">
-          © 2026 TRUNG NGUYỄN
+        <div className="apple-pill px-3 py-1 rounded-full text-[11px] sm:text-xs text-slate-100 font-medium shadow-md" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.9)' }}>
+          © 2026 HOÀN RÙA ICLOUD
         </div>
       </footer>
 

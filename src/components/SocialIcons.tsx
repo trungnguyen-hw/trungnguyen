@@ -1,9 +1,5 @@
 import React from 'react';
-import { 
-  Phone, 
-  Mail, 
-  ExternalLink
-} from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { PROFILE_DATA } from '../data/profile';
 import type { SocialItem } from '../data/profile';
 import { playSound } from '../utils/audio';
@@ -13,7 +9,9 @@ import {
   TiktokIcon,
   ZaloIcon,
   DiscordIcon,
-  TelegramIcon
+  TelegramIcon,
+  PhoneIcon,
+  MailIcon
 } from './BrandIcons';
 
 interface SocialIconsProps {
@@ -25,41 +23,63 @@ export const SocialIcons: React.FC<SocialIconsProps> = ({ onShowToast }) => {
 
   const getPlatformIcon = (id: string) => {
     switch (id) {
-      case 'discord': return <DiscordIcon className="w-5 h-5 text-indigo-400" />;
-      case 'zalo': return <ZaloIcon className="w-5 h-5 text-blue-400" />;
-      case 'phone': return <Phone className="w-5 h-5 text-emerald-400" />;
-      case 'facebook': return <FacebookIcon className="w-5 h-5 text-blue-500" />;
-      case 'tiktok': return <TiktokIcon className="w-5 h-5 text-pink-500" />;
-      case 'telegram': return <TelegramIcon className="w-5 h-5 text-sky-400" />;
+      case 'discord': return <DiscordIcon className="w-5 h-5 text-white" />;
+      case 'zalo': return <ZaloIcon className="w-5 h-5 text-white" />;
+      case 'phone': return <PhoneIcon className="w-5 h-5 text-white" />;
+      case 'facebook': return <FacebookIcon className="w-5 h-5 text-white" />;
+      case 'tiktok': return <TiktokIcon className="w-5 h-5 text-white" />;
+      case 'telegram': return <TelegramIcon className="w-5 h-5 text-white" />;
       case 'github': return <GithubIcon className="w-5 h-5 text-white" />;
-      case 'email': return <Mail className="w-5 h-5 text-red-400" />;
-      default: return <ExternalLink className="w-5 h-5 text-neutral-300" />;
+      case 'email': return <MailIcon className="w-5 h-5 text-white" />;
+      default: return <ExternalLink className="w-5 h-5 text-white" />;
     }
   };
 
   const getTooltipContent = (item: SocialItem) => {
+    if (item.id === 'discord' || item.id === 'telegram' || item.id === 'github' || item.id === 'email') {
+      return "Chưa Cập Nhập";
+    }
     if (item.id === 'zalo' || item.id === 'phone') {
-      return item.username || "0867671066";
+      return "0363.0.54321 - 0353.715.517";
     }
-    if (item.id === 'email') {
-      return item.username || "trungngo1903206@gmail.com";
-    }
-    return item.name;
+    return item.username || item.name;
   };
 
   const handleClick = (item: SocialItem, e: React.MouseEvent) => {
     playSound('click');
 
-    if (item.id === 'zalo') {
+    if (item.id === 'discord' || item.id === 'telegram' || item.id === 'github' || item.id === 'email') {
       e.preventDefault();
-      navigator.clipboard.writeText(item.copyText || "0867671066");
-      onShowToast("Zalo: 0867671066 copied");
+      onShowToast(`${item.name}: Chưa Cập Nhập`);
+    } else if (item.id === 'zalo') {
+      e.preventDefault();
+      navigator.clipboard.writeText(item.copyText || "0363.0.54321 - 0353.715.517");
+      onShowToast("Zalo: 0363.0.54321 - 0353.715.517");
     } else if (item.id === 'phone') {
-      navigator.clipboard.writeText(item.copyText || "0867671066");
-      onShowToast("Phone: 0867671066 copied");
-    } else if (item.id === 'email') {
-      navigator.clipboard.writeText(item.copyText || "trungngo1903206@gmail.com");
-      onShowToast("Email copied to clipboard");
+      onShowToast("Hotline: 0363.0.54321 - 0353.715.517");
+    }
+  };
+
+  const getBrandHoverClass = (id: string) => {
+    switch (id) {
+      case 'discord':
+        return 'hover:border-[#5865F2]/80 hover:shadow-[0_0_22px_rgba(88,101,242,0.55)] hover:bg-[#5865F2]/25';
+      case 'facebook':
+        return 'hover:border-[#1877F2]/80 hover:shadow-[0_0_22px_rgba(24,119,242,0.55)] hover:bg-[#1877F2]/25';
+      case 'tiktok':
+        return 'hover:border-[#EE1D52]/80 hover:shadow-[0_0_22px_rgba(238,29,82,0.55)] hover:bg-[#EE1D52]/25';
+      case 'telegram':
+        return 'hover:border-[#24A1DE]/80 hover:shadow-[0_0_22px_rgba(36,161,222,0.55)] hover:bg-[#24A1DE]/25';
+      case 'zalo':
+        return 'hover:border-[#0068FF]/80 hover:shadow-[0_0_22px_rgba(0,104,255,0.55)] hover:bg-[#0068FF]/25';
+      case 'phone':
+        return 'hover:border-[#10B981]/80 hover:shadow-[0_0_22px_rgba(16,185,129,0.55)] hover:bg-[#10B981]/25';
+      case 'github':
+        return 'hover:border-white/90 hover:shadow-[0_0_22px_rgba(255,255,255,0.45)] hover:bg-white/20';
+      case 'email':
+        return 'hover:border-[#EA4335]/80 hover:shadow-[0_0_22px_rgba(234,67,53,0.55)] hover:bg-[#EA4335]/25';
+      default:
+        return 'hover:border-sky-300/80 hover:shadow-[0_0_22px_rgba(125,211,252,0.55)] hover:bg-sky-500/25';
     }
   };
 
@@ -68,20 +88,19 @@ export const SocialIcons: React.FC<SocialIconsProps> = ({ onShowToast }) => {
       
       {/* Elegant Centered "Contact Me" Heading */}
       <div className="flex items-center justify-center gap-2 mb-3 sm:mb-4 select-none">
-        <span className="w-1.5 h-1.5 rounded-full bg-purple-400/80 animate-pulse shrink-0" />
-        <h2 className="text-sm sm:text-base font-semibold tracking-wide text-neutral-200 drop-shadow-sm">
+        <span className="w-1 h-1 rounded-full bg-sky-200/90 shrink-0" />
+        <h2 className="text-sm sm:text-base font-medium tracking-wide text-slate-100">
           Contact Me
         </h2>
-        <span className="w-1.5 h-1.5 rounded-full bg-purple-400/80 animate-pulse shrink-0" />
+        <span className="w-1 h-1 rounded-full bg-sky-200/90 shrink-0" />
       </div>
 
-      <div className="flex flex-wrap sm:flex-nowrap items-center justify-center gap-2.5 sm:gap-2.5 w-full max-w-[240px] sm:max-w-none mx-auto">
+      <div className="flex flex-wrap items-center justify-center gap-2 xs:gap-2.5 sm:gap-3 w-full max-w-full mx-auto px-1">
         {enabledSocials.map((item) => (
           <div key={item.id} className="relative group shrink-0">
             
-            {/* Elegant Translucent Dark Purple Tooltip (Desktop Only) */}
-            <div className="hidden sm:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 rounded-xl bg-[#0f0c16]/95 border border-[#542080]/60 backdrop-blur-md text-white text-[11px] font-semibold whitespace-nowrap opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 ease-out shadow-[0_8px_20px_rgba(0,0,0,0.8)] pointer-events-none z-50">
-              <span className="text-purple-300 font-bold">{getTooltipContent(item)}</span>
+            <div className="hidden sm:block absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 rounded-xl bg-slate-950/85 border border-white/15 backdrop-blur-xl text-white text-[11px] font-medium max-w-[85vw] sm:max-w-xs truncate opacity-0 group-hover:opacity-100 translate-y-1 group-hover:translate-y-0 transition-all duration-200 ease-out shadow-[0_8px_20px_rgba(0,0,0,0.5)] pointer-events-none z-50">
+              <span className="text-slate-100">{getTooltipContent(item)}</span>
             </div>
 
             <a
@@ -90,7 +109,7 @@ export const SocialIcons: React.FC<SocialIconsProps> = ({ onShowToast }) => {
               rel="noopener noreferrer"
               onClick={(e) => handleClick(item, e)}
               onMouseEnter={() => playSound('hover')}
-              className="w-11 h-11 sm:w-11 sm:h-11 rounded-2xl bg-[#0f0f15]/80 hover:bg-[#181822] flex items-center justify-center transition-all duration-300 ease-out hover:-translate-y-[2px] active:scale-95 shadow-lg hover:shadow-[0_8px_20px_rgba(0,0,0,0.8)] border border-white/10 hover:border-purple-500/40"
+              className={`social-button w-10 h-10 sm:w-11 sm:h-11 rounded-xl xs:rounded-2xl flex items-center justify-center transition-all duration-300 ease-out hover:-translate-y-[2px] active:scale-95 ${getBrandHoverClass(item.id)}`}
               aria-label={item.name}
             >
               {getPlatformIcon(item.id)}
